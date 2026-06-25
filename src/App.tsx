@@ -879,7 +879,7 @@ export default function App() {
             <section 
               className="w-full flex-grow flex items-center justify-center px-4 py-12 sm:py-16 md:py-20 bg-neutral-950 relative"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('${heroContactsImg}')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('${hero-contatti.png}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundAttachment: "fixed"

@@ -340,8 +340,7 @@ export default function App() {
 
               <div className="relative max-w-4xl mx-auto space-y-8">
                 {/* Elegant White Neon Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-neutral-950/85 border border-white/25 rounded-full neon-glow-white-sm mb-1">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse shadow-[0_0_8px_rgba(255,255,255,1)]" />
+                <div className="inline-flex items-center px-4 py-1.5 bg-neutral-950/85 border border-white/25 rounded-full neon-glow-white-sm mb-1">
                   <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-white font-medium uppercase">
                     ESPERIENZA SUSHI PREMIUM
                   </span>
@@ -383,14 +382,6 @@ export default function App() {
                   >
                     Scopri i Menu
                   </a>
-                </div>
-              </div>
-
-              {/* Bounce icon hinting to scroll down */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-1.5 opacity-60">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Scopri</span>
-                <div className="w-5 h-8 border-2 border-neutral-700 rounded-full flex justify-center p-1">
-                  <div className="w-1 h-2 bg-amber-500 rounded-full animate-bounce" />
                 </div>
               </div>
             </section>

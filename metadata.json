@@ -1,0 +1,6 @@
+{
+  "name": "Xian Sushi Foggia",
+  "description": "Ristorante sushi premium a Foggia. Formula All You Can Eat, Area Bimbi con gonfiabili, prenotazione tavoli e servizio Take Away & Delivery con ordine online diretto via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

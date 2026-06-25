@@ -20,11 +20,13 @@ export default function Footer({ onPageChange, onOpenBooking, onOpenLegal }: Foo
           {/* Column 1: Brand & Philosophy */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <img
-                src="logo.png"
-                alt={`${RESTAURANT_CONFIG.name} Logo`}
-                className="h-16 sm:h-20 w-auto object-contain"
-              />
+              <div className="flex items-center justify-center rounded-full bg-[#090909] border border-red-600/30 p-2 shadow-[0_0_12px_rgba(220,38,38,0.25)] w-16 h-16 sm:w-20 sm:h-20">
+                <img
+                  src="logo.png"
+                  alt={`${RESTAURANT_CONFIG.name} Logo`}
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
             <p className="text-xs text-neutral-500 leading-relaxed font-sans pr-4">
               Cucina asiatica contemporanea nel cuore di Foggia. Esperienza culinaria d'eccellenza, formula All You Can Eat e ospitalità per tutta la famiglia.

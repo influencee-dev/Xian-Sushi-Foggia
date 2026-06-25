@@ -61,13 +61,15 @@ export default function Header({
             onClick={() => handleNavClick("home")}
             className="flex items-center gap-3 group focus:outline-none justify-self-start"
           >
-            <img
-              src="logo.png"
-              alt={`${RESTAURANT_CONFIG.name} Logo`}
-              className={`w-auto object-contain transform group-hover:scale-105 transition-all duration-300 ${
-                isScrolled ? "h-12 sm:h-14" : "h-16 sm:h-20"
-              }`}
-            />
+            <div className={`flex items-center justify-center rounded-full bg-[#090909] border border-red-600/30 p-2 shadow-[0_0_12px_rgba(220,38,38,0.25)] transform group-hover:scale-105 transition-all duration-300 ${
+              isScrolled ? "w-12 h-12 sm:w-14 sm:h-14" : "w-16 h-16 sm:w-20 sm:h-20"
+            }`}>
+              <img
+                src="logo.png"
+                alt={`${RESTAURANT_CONFIG.name} Logo`}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </button>
 
           {/* Desktop Navigation */}
@@ -84,7 +86,7 @@ export default function Header({
                 >
                   {item.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.9),0_0_2px_rgba(255,255,255,1)]" />
+                    <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-red-600 rounded-full shadow-[0_0_8px_rgba(220,38,38,0.9),0_0_2px_rgba(220,38,38,1)]" />
                   )}
                 </button>
               );
@@ -157,7 +159,7 @@ export default function Header({
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
                   className={`text-left font-sans text-base tracking-wider font-semibold uppercase py-2 border-b border-neutral-900/50 pb-2 ${
-                    isActive ? "text-white neon-text-white pl-2 border-l-2 border-l-white" : "text-neutral-300 pl-0"
+                    isActive ? "text-white neon-text-white pl-2 border-l-2 border-l-red-600" : "text-neutral-300 pl-0"
                   }`}
                 >
                   {item.label}

@@ -33,6 +33,7 @@ import LegalModals, { LegalDocType } from "./components/LegalModals";
 
 // Assets
 import heroHomeImg from "./assets/images/hero_home_1782375586446.jpg";
+import heroContactsImg from "./assets/images/sushi_mixed_plate_1782302696334.jpg";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<string>("home");
@@ -46,6 +47,12 @@ export default function App() {
 
   // Keep track of quantity additions per product in Takeaway page
   const [productQuantities, setProductQuantities] = useState<{ [key: string]: number }>({});
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.add("light");
+    localStorage.setItem("xian_sushi_theme", "light");
+  }, []);
 
   // Local Storage synchronizer for the cart to persist items across page flips
   useEffect(() => {
@@ -330,7 +337,7 @@ export default function App() {
             <section 
               className="fixed top-[88px] left-0 w-full h-[calc(100vh-88px)] flex items-center justify-center text-center px-4 py-20 bg-neutral-950 overflow-hidden z-0"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.7), rgba(3, 3, 3, 0.7)), url('${heroHomeImg}')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.4), rgba(3, 3, 3, 0.4)), url('${heroHomeImg}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center"
               }}
@@ -365,9 +372,9 @@ export default function App() {
                       setCurrentPage("takeaway");
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="w-full sm:w-auto px-8 py-4 bg-neutral-900 hover:bg-neutral-850 text-white font-bold text-xs uppercase tracking-widest rounded-xl border border-neutral-800 hover:border-amber-500/50 transition-all font-sans flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-8 py-4 bg-neutral-900 hover:bg-neutral-850 text-white font-bold text-xs uppercase tracking-widest rounded-xl border border-neutral-800 hover:border-red-600/50 transition-all font-sans flex items-center justify-center gap-2"
                   >
-                    <ShoppingBag className="w-4 h-4 text-amber-500" />
+                    <ShoppingBag className="w-4 h-4 text-red-600" />
                     Ordina Take Away
                   </button>
 
@@ -685,13 +692,13 @@ export default function App() {
             {/* Lower Page Hero */}
             <section className="bg-neutral-950 py-12 border-b border-neutral-900 text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                <span className="text-amber-500 font-mono tracking-widest text-xs uppercase block mb-2">
+                <span className="text-red-600 font-mono tracking-widest text-xs uppercase block mb-2">
                   ORDINA ONLINE CON WHATSAPP
                 </span>
                 <h1 className="text-3xl sm:text-5xl font-sans text-white tracking-tight">
-                  Take Away & Delivery <span className="text-amber-500">.</span>
+                  Take Away & Delivery <span className="text-red-600">.</span>
                 </h1>
-                <div className="h-0.5 w-12 bg-amber-500 mx-auto mt-3 rounded-full"></div>
+                <div className="h-0.5 w-12 bg-red-600 mx-auto mt-3 rounded-full"></div>
                 <p className="text-neutral-400 mt-4 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-sans">
                   Ordina il tuo sushi preferito a Foggia. Scegli i piatti, aggiungili al carrello e scegli tra consegna a domicilio o ritiro in sede.
                 </p>
@@ -720,7 +727,7 @@ export default function App() {
                       >
                         {category}
                         {isActive && (
-                          <span className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,1)] animate-pulse" />
+                          <span className="w-1.5 h-1.5 bg-red-600 rounded-full shadow-[0_0_8px_rgba(220,38,38,1)] animate-pulse" />
                         )}
                       </button>
                     );
@@ -833,7 +840,7 @@ export default function App() {
 
                                     <button
                                       onClick={() => handleAddToCart(product, localQty)}
-                                      className="flex-1 py-1.5 bg-neutral-950 hover:bg-amber-500/10 text-amber-500 border border-neutral-850 hover:border-amber-500/30 text-xs font-sans uppercase font-bold tracking-wider rounded-lg transition-all flex items-center justify-center gap-1.5"
+                                      className="btn-red-o flex-1 py-1.5 text-xs font-sans uppercase font-bold tracking-wider rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                                     >
                                       <ShoppingBag className="w-3.5 h-3.5" />
                                       Ordina
@@ -864,7 +871,7 @@ export default function App() {
             <section 
               className="w-full flex-grow flex items-center justify-center px-4 py-12 sm:py-16 md:py-20 bg-neutral-950 relative"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('hero-contatti')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.4), rgba(3, 3, 3, 0.4)), url('${heroContactsImg}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundAttachment: "fixed"
@@ -962,7 +969,7 @@ export default function App() {
                               </div>
                               <div>
                                 <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-500 block">Instagram</span>
-                                <span className="text-white font-medium text-xs sm:text-sm group-hover:text-pink-500 transition-colors">@sushi_xian2</span>
+                                <span className="text-white font-medium text-xs sm:text-sm group-hover:text-pink-500 transition-colors">@xiansushi_foggia</span>
                               </div>
                             </a>
                           )}

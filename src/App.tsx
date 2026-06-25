@@ -30,6 +30,7 @@ import CheckoutForm from "./components/CheckoutForm";
 import CartDrawer from "./components/CartDrawer";
 import FAQ from "./components/FAQ";
 import LegalModals, { LegalDocType } from "./components/LegalModals";
+import CookieBanner from "./components/CookieBanner";
 
 // Assets
 import heroHomeImg from "./assets/images/hero_home_1782375586446.jpg";
@@ -380,7 +381,7 @@ export default function App() {
 
                   <a
                     href="#menu-ayce"
-                    className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-neutral-900/50 text-neutral-300 hover:text-white font-medium text-xs uppercase tracking-widest rounded-xl border border-neutral-800 transition-all font-sans flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-widest rounded-xl border border-white/20 hover:border-white/50 transition-all font-sans flex items-center justify-center gap-2 keep-white"
                   >
                     Scopri i Menu
                   </a>
@@ -1112,6 +1113,9 @@ export default function App() {
         activeDoc={activeLegalDoc}
         onClose={() => setActiveLegalDoc(null)}
       />
+
+      {/* Cookie Consent Banner */}
+      <CookieBanner onOpenCookiePolicy={() => setActiveLegalDoc("cookie")} />
 
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CartItem, OrderType, PaymentMethod, CheckoutDetails } from "../types";
 import { RESTAURANT_CONFIG } from "../data";
-import { ShoppingBag, MapPin, Clock, Phone, User, Clipboard, Check, X, CreditCard, Banknote } from "lucide-react";
+import { ShoppingBag, MapPin, Clock, Phone, User, Clipboard, Check, X, CreditCard, Banknote, Mail } from "lucide-react";
 
 interface CheckoutFormProps {
   cart: CartItem[];
@@ -20,6 +20,7 @@ export default function CheckoutForm({
     type: OrderType.TAKEAWAY,
     fullName: "",
     phone: "",
+    email: "",
     address: "",
     city: "Foggia",
     paymentMethod: PaymentMethod.CASH,
@@ -46,6 +47,12 @@ export default function CheckoutForm({
     if (!details.fullName.trim()) tempErrors.fullName = "Nome e cognome obbligatori.";
     if (!details.phone.trim()) tempErrors.phone = "Numero di telefono obbligatorio.";
     
+    if (!details.email?.trim()) {
+      tempErrors.email = "Indirizzo email obbligatorio.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(details.email)) {
+      tempErrors.email = "Inserisci un indirizzo email valido.";
+    }
+    
     if (details.type === OrderType.DELIVERY) {
       if (!details.address?.trim()) tempErrors.address = "Indirizzo di consegna obbligatorio.";
       if (!details.city?.trim()) tempErrors.city = "Comune di consegna obbligatorio.";
@@ -64,53 +71,60 @@ export default function CheckoutForm({
     setShowConfirmation(true);
   };
 
-  const handleSendToWhatsApp = () => {
+  const handleFinalizeOrder = () => {
     if (!orderCode) return;
 
-    // Save to Brevo list 45
+    // Save to Brevo list 45 and send order email recap
     fetch("/api/brevo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        email: details.email,
         firstName: details.fullName,
         phone: details.phone,
         type: "checkout",
         details: {
+          orderCode,
           type: details.type,
           total: cartTotal.toFixed(2),
           notes: details.notes,
+          pickupTime: details.pickupTime,
+          address: details.address,
+          city: details.city,
+          paymentMethod: details.paymentMethod,
+          items: cart.map((item) => ({
+            name: item.product.name,
+            quantity: item.quantity,
+            price: item.product.price.toFixed(2),
+            totalPrice: (item.product.price * item.quantity).toFixed(2),
+          })),
         },
       }),
     }).catch((err) => console.error("Error sending to Brevo:", err));
 
-    const itemsSummary = cart
-      .map((item) => `- ${item.product.name} (x${item.quantity}) - €${(item.product.price * item.quantity).toFixed(2)}`)
-      .join("\n");
+    if (details.type === OrderType.TAKEAWAY) {
+      const itemsSummary = cart
+        .map((item) => `- ${item.product.name} (x${item.quantity}) - €${(item.product.price * item.quantity).toFixed(2)}`)
+        .join("\n");
 
-    const headerText = `🍣 ORDINE RICEVUTO - CODICE: ${orderCode}\n`;
-    const typeText = `Tipologia: ${details.type === OrderType.DELIVERY ? "CONSEGNA A DOMICILIO" : "RITIRO DA ASPORTO"}\n`;
-    const clientText = `Cliente: ${details.fullName}\nTelefono: ${details.phone}\n`;
-    
-    let logisticsText = "";
-    if (details.type === OrderType.DELIVERY) {
-      logisticsText = `Indirizzo di Consegna: ${details.address}, ${details.city}\nMetodo Pagamento: ${details.paymentMethod === PaymentMethod.ONLINE ? "Pagamento con Carta Online" : "Contanti alla Consegna"}\n`;
-    } else {
-      logisticsText = `Orario Richiesto Ritiro: ${details.pickupTime}\nPagamento: In Sede al Ritiro\n`;
+      const headerText = `🍣 ORDINE RICEVUTO - CODICE: ${orderCode}\n`;
+      const typeText = `Tipologia: RITIRO DA ASPORTO\n`;
+      const clientText = `Cliente: ${details.fullName}\nTelefono: ${details.phone}\nEmail: ${details.email || "Non inserita"}\n`;
+      const logisticsText = `Orario Richiesto Ritiro: ${details.pickupTime}\nPagamento: In Sede al Ritiro\n`;
+      const noteText = `Note: ${details.notes || "Nessuna nota."}\n`;
+      const totalText = `\nPRODOTTI ORDINATI:\n${itemsSummary}\n\nTOTALE ORDINE: €${cartTotal.toFixed(2)}`;
+
+      const message = `${headerText}${typeText}${clientText}${logisticsText}${noteText}${totalText}`;
+      const encodedMessage = encodeURIComponent(message);
+      const cleanWhatsapp = RESTAURANT_CONFIG.whatsapp.replace(/\D/g, "");
+      const whatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${encodedMessage}`;
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     }
-
-    const noteText = `Note: ${details.notes || "Nessuna nota."}\n`;
-    const totalText = `\nPRODOTTI ORDINATI:\n${itemsSummary}\n\nTOTALE ORDINE: €${cartTotal.toFixed(2)}`;
-
-    const message = `${headerText}${typeText}${clientText}${logisticsText}${noteText}${totalText}`;
-    const encodedMessage = encodeURIComponent(message);
-    const cleanWhatsapp = RESTAURANT_CONFIG.whatsapp.replace(/\D/g, "");
-    const whatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${encodedMessage}`;
-
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     
-    // Clean up and close
+    // Clean up and close for both types
     onClearCart();
     setShowConfirmation(false);
     onClose();
@@ -203,6 +217,25 @@ export default function CheckoutForm({
               />
             </div>
             {errors.phone && <p className="text-red-500 text-[10px] mt-1 font-sans">{errors.phone}</p>}
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1">
+              Indirizzo Email *
+            </label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+              <input
+                type="email"
+                placeholder="Esempio: mario.rossi@email.it"
+                value={details.email || ""}
+                onChange={(e) => setDetails({ ...details, email: e.target.value })}
+                className={`w-full pl-9 pr-4 py-2.5 bg-neutral-950 border rounded-xl text-white text-sm focus:outline-none transition-all ${
+                  errors.email ? "border-red-500 focus:ring-1 focus:ring-red-500/25" : "border-neutral-800 focus:border-amber-500/50"
+                }`}
+              />
+            </div>
+            {errors.email && <p className="text-red-500 text-[10px] mt-1 font-sans">{errors.email}</p>}
           </div>
 
           {/* Conditional Layout for DELIVERY */}
@@ -368,16 +401,20 @@ export default function CheckoutForm({
               CODICE: {orderCode}
             </span>
 
-            <h3 className="text-2xl font-sans text-white font-bold tracking-tight">Ordine Pronto!</h3>
+            <h3 className="text-2xl font-sans text-white font-bold tracking-tight">
+              {details.type === OrderType.DELIVERY ? "Ordine Ricevuto!" : "Ordine Pronto!"}
+            </h3>
             <p className="text-xs text-neutral-400 mt-2 leading-relaxed">
-              Il tuo ordine è stato generato ed è pronto per l'invio su WhatsApp. Clicca sotto per collegarti con lo staff del ristorante e ricevere conferma immediata.
+              {details.type === OrderType.DELIVERY
+                ? "Il tuo ordine è stato registrato con successo e salvato sul nostro sistema di gestione (Brevo). Lo staff prenderà in carico la tua consegna a domicilio."
+                : "Il tuo ordine è stato generato ed è pronto per l'invio su WhatsApp. Clicca sotto per collegarti con lo staff del ristorante e ricevere conferma immediata."}
             </p>
 
             {/* Recipient Details */}
             <div className="bg-neutral-950 border border-neutral-800/60 rounded-xl p-4 my-5 text-left text-xs font-sans space-y-2 max-h-48 overflow-y-auto">
               <p className="text-neutral-500 uppercase font-mono tracking-wider font-bold text-[10px] border-b border-neutral-900 pb-1.5 mb-1.5 flex justify-between">
                 <span>Riepilogo Ordine</span>
-                <span className="text-amber-500 font-bold">{details.type}</span>
+                <span className="text-amber-500 font-bold">{details.type === OrderType.DELIVERY ? "CONSEGNA" : "ASPORTO"}</span>
               </p>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Destinatario:</span>
@@ -386,6 +423,10 @@ export default function CheckoutForm({
               <div className="flex justify-between">
                 <span className="text-neutral-500">Recapito:</span>
                 <span className="text-neutral-200 font-medium">{details.phone}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-neutral-500">Email:</span>
+                <span className="text-neutral-200 font-medium truncate max-w-[200px]">{details.email}</span>
               </div>
               {details.type === OrderType.DELIVERY ? (
                 <div className="flex justify-between">
@@ -418,12 +459,21 @@ export default function CheckoutForm({
             </div>
 
             <div className="space-y-3">
-              <button
-                onClick={handleSendToWhatsApp}
-                className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-sans font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-amber-500/10 hover:shadow-amber-500/25 transition-all flex items-center justify-center gap-2"
-              >
-                Invia Ordine su WhatsApp
-              </button>
+              {details.type === OrderType.DELIVERY ? (
+                <button
+                  onClick={handleFinalizeOrder}
+                  className="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-sans font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2"
+                >
+                  Completa e Chiudi
+                </button>
+              ) : (
+                <button
+                  onClick={handleFinalizeOrder}
+                  className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-sans font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-amber-500/10 hover:shadow-amber-500/25 transition-all flex items-center justify-center gap-2"
+                >
+                  Invia Ordine su WhatsApp
+                </button>
+              )}
               
               <button
                 onClick={() => setShowConfirmation(false)}

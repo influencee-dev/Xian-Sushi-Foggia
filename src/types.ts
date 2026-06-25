@@ -75,6 +75,7 @@ export interface CheckoutDetails {
   type: OrderType;
   fullName: string;
   phone: string;
+  email?: string;
   // For Delivery
   address?: string;
   city?: string;

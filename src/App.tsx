@@ -32,7 +32,6 @@ import FAQ from "./components/FAQ";
 import LegalModals, { LegalDocType } from "./components/LegalModals";
 
 // Assets
-import heroContactsImg from "./assets/images/hero_contacts_1782375543235.jpg";
 import heroHomeImg from "./assets/images/hero_home_1782375586446.jpg";
 
 export default function App() {
@@ -879,7 +878,7 @@ export default function App() {
             <section 
               className="w-full flex-grow flex items-center justify-center px-4 py-12 sm:py-16 md:py-20 bg-neutral-950 relative"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('${hero-contatti.png}')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('hero-contatti')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundAttachment: "fixed"

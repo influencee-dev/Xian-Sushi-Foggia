@@ -77,7 +77,7 @@ export const RESTAURANT_CONFIG: RestaurantConfig = {
       image: "nigiri.png",
     },
   ],
-  instagramUrl: "https://www.instagram.com/sushi_xian2/",
+  instagramUrl: "https://www.instagram.com/xiansushi_foggia/",
   facebookUrl: "https://www.facebook.com/sushixian888/",
 };
 

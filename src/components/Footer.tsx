@@ -23,7 +23,7 @@ export default function Footer({ onPageChange, onOpenBooking, onOpenLegal }: Foo
               <img
                 src="logo.png"
                 alt={`${RESTAURANT_CONFIG.name} Logo`}
-                className="h-10 w-auto object-contain"
+                className="h-16 sm:h-20 w-auto object-contain"
               />
             </div>
             <p className="text-xs text-neutral-500 leading-relaxed font-sans pr-4">

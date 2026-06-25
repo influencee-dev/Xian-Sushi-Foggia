@@ -49,27 +49,29 @@ export default function Header({
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-neutral-950/95 backdrop-blur-md border-b border-neutral-900 shadow-[0_4px_30px_rgba(0,0,0,0.8),0_1px_10px_rgba(255,255,255,0.06)] py-4"
-          : "bg-neutral-950/60 backdrop-blur-sm border-b border-neutral-900/30 py-6"
+          ? "bg-neutral-950/95 backdrop-blur-md border-b border-neutral-900 shadow-[0_4px_30px_rgba(0,0,0,0.8),0_1px_10px_rgba(255,255,255,0.06)] py-2"
+          : "bg-neutral-950/60 backdrop-blur-sm border-b border-neutral-900/30 py-3 sm:py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:grid md:grid-cols-3">
           
           {/* Logo & Brand Name */}
           <button
             onClick={() => handleNavClick("home")}
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center gap-3 group focus:outline-none justify-self-start"
           >
             <img
               src="logo.png"
               alt={`${RESTAURANT_CONFIG.name} Logo`}
-              className="h-10 sm:h-12 w-auto object-contain transform group-hover:scale-105 transition-transform duration-300"
+              className={`w-auto object-contain transform group-hover:scale-105 transition-all duration-300 ${
+                isScrolled ? "h-12 sm:h-14" : "h-16 sm:h-20"
+              }`}
             />
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 justify-self-center">
             {navItems.map((item) => {
               const isActive = currentPage === item.id;
               return (
@@ -90,7 +92,7 @@ export default function Header({
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4 justify-self-end">
             {/* Prenota Tavolo */}
             <button
               onClick={onOpenBooking}

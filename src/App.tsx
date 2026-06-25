@@ -31,6 +31,10 @@ import CartDrawer from "./components/CartDrawer";
 import FAQ from "./components/FAQ";
 import LegalModals, { LegalDocType } from "./components/LegalModals";
 
+// Assets
+import heroContactsImg from "./assets/images/hero_contacts_1782375543235.jpg";
+import heroHomeImg from "./assets/images/hero_home_1782375586446.jpg";
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<string>("home");
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -327,7 +331,7 @@ export default function App() {
             <section 
               className="fixed top-[88px] left-0 w-full h-[calc(100vh-88px)] flex items-center justify-center text-center px-4 py-20 bg-neutral-950 overflow-hidden z-0"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.7), rgba(3, 3, 3, 0.7)), url('hero-home.png')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.7), rgba(3, 3, 3, 0.7)), url('${heroHomeImg}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center"
               }}
@@ -776,15 +780,14 @@ export default function App() {
                               </p>
                             </div>
 
-                            {/* Floating "scontornata" elegant circular dish image */}
-                            <div className="absolute right-4 bottom-4 lg:static lg:mx-auto lg:mt-8 w-24 h-24 lg:w-44 lg:h-44 rounded-full overflow-hidden border border-neutral-800/80 bg-neutral-950/95 shadow-[0_15px_30px_rgba(0,0,0,0.85),_0_0_20px_rgba(245,158,11,0.06)] group-hover:scale-105 group-hover:rotate-6 group-hover:border-amber-500/30 transition-all duration-500 flex items-center justify-center select-none pointer-events-none">
+                            {/* Clean product category image */}
+                            <div className="absolute right-4 bottom-4 lg:static lg:mx-auto lg:mt-8 w-24 h-24 lg:w-44 lg:h-44 transition-all duration-500 flex items-center justify-center select-none pointer-events-none">
                               <img
                                 src={categoryImage}
                                 alt={category}
                                 referrerPolicy="no-referrer"
-                                className="w-[101%] h-[101%] object-cover transform scale-110 group-hover:scale-120 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                                className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                               />
-                              <div className="absolute inset-0 bg-neutral-950/10 pointer-events-none" />
                             </div>
                           </div>
                         </div>
@@ -876,7 +879,7 @@ export default function App() {
             <section 
               className="w-full flex-grow flex items-center justify-center px-4 py-12 sm:py-16 md:py-20 bg-neutral-950 relative"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('hero-contatti')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.85), rgba(3, 3, 3, 0.85)), url('${heroContactsImg}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundAttachment: "fixed"

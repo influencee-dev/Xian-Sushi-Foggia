@@ -339,12 +339,7 @@ export default function App() {
               <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative max-w-4xl mx-auto space-y-8">
-                {/* Elegant White Neon Badge */}
-                <div className="inline-flex items-center px-4 py-1.5 bg-neutral-950/85 border border-white/25 rounded-full neon-glow-white-sm mb-1">
-                  <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-white font-medium uppercase">
-                    ESPERIENZA SUSHI PREMIUM
-                  </span>
-                </div>
+
 
                 {/* Real logo image */}
                 <div className="mx-auto flex flex-col items-center justify-center max-w-[280px] sm:max-w-[340px] md:max-w-[400px] mb-6">

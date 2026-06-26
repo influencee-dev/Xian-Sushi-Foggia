@@ -316,7 +316,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-400 font-sans selection:bg-amber-500/20 selection:text-white flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-neutral-950 text-neutral-400 font-sans selection:bg-amber-500/20 selection:text-white flex flex-col overflow-x-clip">
       {/* JSON-LD Script tag for SEO bots */}
       <script type="application/ld+json">
         {JSON.stringify(jsonLdData)}
@@ -632,7 +632,7 @@ export default function App() {
             </section>
 
             {/* STICKY HORIZONTAL CATEGORY SELECTOR FOR BOTH DESKTOP AND MOBILE */}
-            <div className="sticky top-[72px] lg:top-[80px] z-30 bg-neutral-950/95 backdrop-blur-md py-4 border-b border-neutral-900/80 mb-8 select-none w-full">
+            <div className="sticky top-[60px] md:top-[64px] lg:top-[72px] z-30 bg-neutral-950/95 backdrop-blur-md py-4 border-b border-neutral-900/80 mb-8 select-none w-full">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div 
                   ref={categoryContainerRef}
@@ -797,7 +797,7 @@ export default function App() {
             <section 
               className="fixed top-[88px] left-0 right-0 h-[calc(100vh-88px)] flex items-center justify-center bg-neutral-950 overflow-hidden z-0"
               style={{
-                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.4), rgba(3, 3, 3, 0.4)), url('${specialRollImg}')`,
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.4), rgba(3, 3, 3, 0.4)), url('hero-filosofia.png')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center"
               }}
@@ -807,103 +807,116 @@ export default function App() {
             </section>
 
             {/* SCROLLING CONTENT WRAPPER - Slides up and covers the hero section */}
-            <div className="relative z-20 mt-[calc(100vh-88px)] bg-neutral-950 pb-24 border-t border-neutral-900 shadow-none">
+            <div className="relative z-20 mt-[calc(100vh-88px)] bg-neutral-950 border-t border-neutral-900 shadow-none">
               
               {/* Clean division transition line */}
               <div className="h-[1px] w-full bg-neutral-800/20" />
               
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                
-                {/* Intro Section */}
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                  <span className="text-red-600 font-mono tracking-widest text-xs uppercase block mb-3 font-bold">
-                    L'ECCELLENZA DEL DETTAGLIO
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans text-white tracking-tight">
-                    I tre pilastri della nostra cucina <span className="text-red-600">.</span>
-                  </h2>
-                  <div className="h-1 w-12 bg-red-600 mx-auto mt-4 rounded-full"></div>
-                  <p className="text-neutral-300 mt-6 text-base sm:text-lg leading-relaxed font-sans font-light">
-                    “Dall'accurata selezione delle materie prime al design raffinato dell'ambiente: Xian è un'esperienza sensoriale completa, pensata per chi desidera il perfetto equilibrio tra gusto eccellente e relax assoluto.”
-                  </p>
-                </div>
-
-                {/* 1. Qualità Selezionata */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16 border-t border-neutral-900/50">
-                  <div className="lg:col-span-7 space-y-6">
-                    <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">01 / LA NOSTRA PROMESSA</span>
-                    <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
-                      Qualità Selezionata <span className="text-red-600">.</span>
-                    </h3>
-                    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
-                      Selezioniamo solo materie prime eccellenti. Ogni trancio di pesce viene acquistato con certificazioni di provenienza e sottoposto a un rigoroso processo di abbattimento rapido di temperatura per garantire la massima sicurezza alimentare.
-                    </p>
-                    <p className="text-neutral-400 text-sm leading-relaxed">
-                      Le nostre preparazioni sono interamente espresse: nulla viene preparato in anticipo. Questo garantisce che ogni singola portata arrivi al tuo tavolo preservando la consistenza ideale, i colori naturali e il sapore autentico del pesce fresco. Un'attenzione meticolosa che trasforma la cena in un momento di pura estasi gastronomica.
-                    </p>
-                  </div>
-                  <div className="lg:col-span-5">
-                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
-                      <img 
-                        src={nigiriImg} 
-                        alt="Qualità Selezionata" 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. Esperienza All You Can Eat */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16 border-t border-neutral-900/50">
-                  <div className="lg:col-span-5 order-2 lg:order-1">
-                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
-                      <img 
-                        src={temakiImg} 
-                        alt="Esperienza All You Can Eat" 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
-                      />
-                    </div>
-                  </div>
-                  <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
-                    <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">02 / LA FORMULA PERFETTA</span>
-                    <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
-                      Esperienza All You Can Eat <span className="text-red-600">.</span>
-                    </h3>
-                    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
-                      Per noi, la formula All You Can Eat non è un compromesso sulla qualità, ma una via di accesso alla libertà di esplorazione culinaria. 
-                    </p>
-                    <p className="text-neutral-400 text-sm leading-relaxed">
-                      Vogliamo dare a ciascun ospite la possibilità di intraprendere un percorso gastronomico senza limiti o timori, provando creazioni classiche, roll innovativi e accostamenti audaci pensati dai nostri sushi chef. Gusto illimitato, grande varietà, ma sempre con la certezza di un servizio accurato e impiattamenti curati con la massima dedizione.
+              {/* Intro Section - Full Width */}
+              <div className="w-full bg-neutral-950 py-20 border-b border-neutral-900/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center max-w-3xl mx-auto">
+                    <span className="text-red-600 font-mono tracking-widest text-xs uppercase block mb-3 font-bold">
+                      L'ECCELLENZA DEL DETTAGLIO
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans text-white tracking-tight">
+                      I tre pilastri della nostra cucina <span className="text-red-600">.</span>
+                    </h2>
+                    <div className="h-1 w-12 bg-red-600 mx-auto mt-4 rounded-full"></div>
+                    <p className="text-neutral-300 mt-6 text-base sm:text-lg leading-relaxed font-sans font-light">
+                      “Dall'accurata selezione delle materie prime al design raffinato dell'ambiente: Xian è un'esperienza sensoriale completa, pensata per chi desidera il perfetto equilibrio tra gusto eccellente e relax assoluto.”
                     </p>
                   </div>
                 </div>
-
-                {/* 3. Atmosfera Premium */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16 border-t border-neutral-900/50">
-                  <div className="lg:col-span-7 space-y-6">
-                    <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">03 / IL NOSTRO SPAZIO</span>
-                    <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
-                      Atmosfera Premium <span className="text-red-600">.</span>
-                    </h3>
-                    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
-                      La cura per il dettaglio da Xian va ben oltre il piatto. Abbiamo plasmato un ambiente raffinato, rilassante ed elegante, in cui il design si unisce alla massima ospitalità.
-                    </p>
-                    <p className="text-neutral-400 text-sm leading-relaxed">
-                      Arredi in tonalità scure, dettagli caldi, giochi di luce soffusa ed elementi di design creano l'atmosfera ideale per qualsiasi occasione: da una cena romantica di coppia a una serata rilassata in famiglia o con un gruppo di amici storici. Un'oasi contemporanea concepita per farti dimenticare il ritmo frenetico della giornata e farti vivere un momento speciale.
-                    </p>
-                  </div>
-                  <div className="lg:col-span-5">
-                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
-                      <img 
-                        src={heroContactsImg} 
-                        alt="Atmosfera Premium" 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
-                      />
-                    </div>
-                  </div>
-                </div>
-
               </div>
+
+              {/* 1. Qualità Selezionata - Full Width alternating band */}
+              <div className="w-full bg-neutral-900/30 py-20 border-b border-neutral-900/40">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="lg:col-span-7 space-y-6">
+                      <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">01 / LA NOSTRA PROMESSA</span>
+                      <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
+                        Qualità Selezionata <span className="text-red-600">.</span>
+                      </h3>
+                      <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                        Selezioniamo solo materie prime eccellenti. Ogni trancio di pesce viene acquistato con certificazioni di provenienza e sottoposto a un rigoroso processo di abbattimento rapido di temperatura per garantire la massima sicurezza alimentare.
+                      </p>
+                      <p className="text-neutral-400 text-sm leading-relaxed">
+                        Le nostre preparazioni sono interamente espresse: nulla viene preparato in anticipo. Questo garantisce che ogni singola portata arrivi al tuo tavolo preservando la consistenza ideale, i colori naturali e il sapore autentico del pesce fresco. Un'attenzione meticolosa che trasforma la cena in un momento di pura estasi gastronomica.
+                      </p>
+                    </div>
+                    <div className="lg:col-span-5">
+                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                        <img 
+                          src="filosofia1.png" 
+                          alt="Qualità Selezionata" 
+                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Esperienza All You Can Eat - Full Width band */}
+              <div className="w-full bg-neutral-950 py-20 border-b border-neutral-900/40">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="lg:col-span-5 order-2 lg:order-1">
+                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                        <img 
+                          src="filosofia2.png" 
+                          alt="Esperienza All You Can Eat" 
+                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                        />
+                      </div>
+                    </div>
+                    <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                      <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">02 / LA FORMULA PERFETTA</span>
+                      <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
+                        Esperienza All You Can Eat <span className="text-red-600">.</span>
+                      </h3>
+                      <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                        Per noi, la formula All You Can Eat non è un compromesso sulla qualità, ma una via di accesso alla libertà di esplorazione culinaria. 
+                      </p>
+                      <p className="text-neutral-400 text-sm leading-relaxed">
+                        Vogliamo dare a ciascun ospite la possibilità di intraprendere un percorso gastronomico senza limiti o timori, provando creazioni classiche, roll innovativi e accostamenti audaci pensati dai nostri sushi chef. Gusto illimitato, grande varietà, ma sempre con la certezza di un servizio accurato e impiattamenti curati con la massima dedizione.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. Atmosfera Premium - Full Width alternating band */}
+              <div className="w-full bg-neutral-900/30 py-20 pb-32">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="lg:col-span-7 space-y-6">
+                      <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">03 / IL NOSTRO SPAZIO</span>
+                      <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
+                        Atmosfera Premium <span className="text-red-600">.</span>
+                      </h3>
+                      <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                        La cura per il dettaglio da Xian va ben oltre il piatto. Abbiamo plasmato un ambiente raffinato, rilassante ed elegante, in cui il design si unisce alla massima ospitalità.
+                      </p>
+                      <p className="text-neutral-400 text-sm leading-relaxed">
+                        Arredi in tonalità scure, dettagli caldi, giochi di luce soffusa ed elementi di design creano l'atmosfera ideale per qualsiasi occasione: da una cena romantica di coppia a una serata rilassata in famiglia o con un gruppo di amici storici. Un'oasi contemporanea concepita per farti dimenticare il ritmo frenetico della giornata e farti vivere un momento speciale.
+                      </p>
+                    </div>
+                    <div className="lg:col-span-5">
+                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                        <img 
+                          src="filosofia3.png" 
+                          alt="Atmosfera Premium" 
+                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         )}

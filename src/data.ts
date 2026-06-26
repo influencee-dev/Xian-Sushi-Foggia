@@ -332,7 +332,7 @@ export const FAQS: FAQItem[] = [
   {
     id: "faq-1",
     question: "Dove mangiare sushi all you can eat a Foggia?",
-    answer: "Il nostro restaurante Xian Sushi si trova a Foggia, in Via Manfredonia 37. Proponiamo un'autentica formula sushi all you can eat a pranzo e a cena, con ingredienti freschissimi di alta qualità, preparazioni espresse e un ambiente premium ideale per trascorrere momenti in coppia, famiglia o con amici.",
+    answer: "Il nostro ristorante Xian Sushi si trova a Foggia, in Via Manfredonia 37. Proponiamo un'autentica formula sushi all you can eat a pranzo e a cena, con ingredienti freschissimi di alta qualità, preparazioni espresse e un ambiente premium ideale per trascorrere momenti in coppia, famiglia o con amici.",
   },
   {
     id: "faq-2",
@@ -366,7 +366,7 @@ export const FAQS: FAQItem[] = [
   },
   {
     id: "faq-8",
-    question: "Como posso raggiungere il ristorante?",
+    question: "Come posso raggiungere il ristorante?",
     answer: "Il ristorante è situato a Foggia in Via Manfredonia 37, zona facilmente raggiungibile. Nella nostra pagina Contatti troverai una mappa interattiva integrata e un comodo pulsante per avviare la navigazione assistita con Google Maps direttamente dal tuo smartphone, anche se provieni da San Severo, Lucera, Manfredonia, Cerignola o altri comuni limitrofi.",
   },
 ];

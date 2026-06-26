@@ -14,7 +14,7 @@ export default function FAQ() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <span className="text-amber-500 font-mono tracking-widest text-xs uppercase block mb-3">
-            SEO & AEO OPTIMIZED
+            FAQ & INFORMAZIONI
           </span>
           <h2 className="text-3xl sm:text-4xl font-sans text-white tracking-tight">
             Domande Frequenti <span className="text-amber-500">.</span>

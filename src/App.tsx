@@ -35,8 +35,38 @@ import CookieBanner from "./components/CookieBanner";
 // Assets
 import heroHomeImg from "./assets/images/hero_home_1782375586446.jpg";
 import heroContactsImg from "./assets/images/sushi_mixed_plate_1782302696334.jpg";
+import bubbleTeaImg from "./assets/images/bubble_tea_taro_1782302752005.jpg";
+import dumplingsImg from "./assets/images/dumplings_edamame_1782302724810.jpg";
+import pokeImg from "./assets/images/poke_salmon_bowl_1782302740130.jpg";
+import nigiriImg from "./assets/images/sushi_nigiri_1782302776633.jpg";
+import specialRollImg from "./assets/images/sushi_special_roll_1782302710695.jpg";
+import temakiImg from "./assets/images/sushi_temaki_1782302791979.jpg";
 
 export default function App() {
+  const priceImageMap: Record<string, string> = {
+    "antipasto.png": dumplingsImg,
+    "sashimi.png": heroContactsImg,
+    "temaki.png": temakiImg,
+    "nigiri.png": nigiriImg
+  };
+
+  const categoryImageMap: Record<string, string> = {
+    "Antipasti": dumplingsImg,
+    "Primi Piatti": dumplingsImg,
+    "Secondi Piatti": pokeImg,
+    "Sashimi & Sushi Misto": heroContactsImg,
+    "Nigiri": nigiriImg,
+    "Hosomaki": specialRollImg,
+    "Uramaki": specialRollImg,
+    "Futomaki": specialRollImg,
+    "Gunkan": specialRollImg,
+    "Temaki": temakiImg,
+    "Onigiri": nigiriImg,
+    "Dolci": bubbleTeaImg,
+    "Bevande": bubbleTeaImg,
+    "Birre": bubbleTeaImg
+  };
+
   const [currentPage, setCurrentPage] = useState<string>("home");
   const [cart, setCart] = useState<CartItem[]>([]);
   const categoryContainerRef = useRef<HTMLDivElement>(null);
@@ -390,9 +420,9 @@ export default function App() {
             </section>
 
             {/* SCROLLING CONTENT WRAPPER - Slides up and covers the hero section */}
-            <div className="relative z-20 mt-[calc(100vh-88px)] bg-neutral-950 shadow-[0_-20px_50px_rgba(0,0,0,0.9)]">
-              {/* Elegant white neon fluo transition line */}
-              <div className="h-[1.5px] w-full bg-gradient-to-r from-transparent via-white/50 to-transparent shadow-[0_0_10px_rgba(255,255,255,0.6)]" />
+            <div className="relative z-20 mt-[calc(100vh-88px)] bg-neutral-950 shadow-none">
+              {/* Clean division transition line */}
+              <div className="h-[1px] w-full bg-neutral-800/20" />
               
               {/* SEZIONE FILOSOFIA */}
               <section className="py-24 bg-neutral-950 relative">
@@ -543,22 +573,13 @@ export default function App() {
 
                           {/* Image Column */}
                           {card.image && (
-                            <div className="sm:col-span-5 flex items-center justify-center relative w-full h-full min-h-[160px] sm:min-h-0">
-                              {/* Ambient golden aura behind plate */}
-                              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-amber-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-amber-500/10 transition-all duration-500" />
-                              
-                              <div className="w-full aspect-[4/3] flex items-center justify-center select-none pointer-events-none overflow-visible">
+                            <div className="sm:col-span-5 flex items-center justify-center w-full h-full min-h-[160px] sm:min-h-0">
+                              <div className="w-full aspect-[4/3] flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/40">
                                 <img
-                                  src={card.image}
+                                  src={priceImageMap[card.image] || card.image}
                                   alt={card.title}
                                   referrerPolicy="no-referrer"
-                                  className="max-w-full max-h-full w-auto h-auto object-contain transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 opacity-95 group-hover:opacity-100"
-                                  style={{ 
-                                    mixBlendMode: 'screen',
-                                    filter: 'brightness(0.9) contrast(1.35)',
-                                    WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 70%)',
-                                    maskImage: 'radial-gradient(circle, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 70%)'
-                                  }}
+                                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                                 />
                               </div>
                             </div>
@@ -744,7 +765,7 @@ export default function App() {
                 {CATEGORIES.map((category) => {
                   const categoryProducts = PRODUCTS.filter((p) => p.category === category);
                   if (categoryProducts.length === 0) return null;
-                  const categoryImage = CATEGORY_IMAGES[category] || "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80";
+                  const categoryImage = categoryImageMap[category] || CATEGORY_IMAGES[category] || "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80";
                   const sectionId = `section-${category.replace(/\s+/g, "-").toLowerCase()}`;
 
                   return (
@@ -774,12 +795,12 @@ export default function App() {
                             </div>
 
                             {/* Clean product category image */}
-                            <div className="absolute right-4 bottom-4 lg:static lg:mx-auto lg:mt-8 w-24 h-24 lg:w-44 lg:h-44 transition-all duration-500 flex items-center justify-center select-none pointer-events-none">
+                            <div className="absolute right-4 bottom-4 lg:static lg:mx-auto lg:mt-8 w-24 h-24 lg:w-44 lg:h-44 transition-all duration-500 flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-xl border border-neutral-850 bg-neutral-950/20">
                               <img
                                 src={categoryImage}
                                 alt={category}
                                 referrerPolicy="no-referrer"
-                                className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                               />
                             </div>
                           </div>

@@ -2,21 +2,21 @@
 @import "tailwindcss";
 
 :root {
-  --neutral-950: #fafafa;
-  --neutral-900: #ffffff;
-  --neutral-850: #f4f4f5;
-  --neutral-800: #e4e4e7;
-  --neutral-400: #52525b;
-  --neutral-300: #18181b;
+  --neutral-950: #faf8f5; /* Elegant warm off-white / cream background as requested */
+  --neutral-900: #ffffff; /* Card / pure white background */
+  --neutral-850: #f5f3ec; /* Warm tint light gray/cream */
+  --neutral-800: #e8e5db; /* Warm light borders */
+  --neutral-400: #5c5850; /* Warm charcoal text */
+  --neutral-300: #201d19; /* Warm deep charcoal text */
 }
 
 html.light {
-  --neutral-950: #fafafa;
+  --neutral-950: #faf8f5;
   --neutral-900: #ffffff;
-  --neutral-850: #f4f4f5;
-  --neutral-800: #e4e4e7;
-  --neutral-400: #52525b;
-  --neutral-300: #18181b;
+  --neutral-850: #f5f3ec;
+  --neutral-800: #e8e5db;
+  --neutral-400: #5c5850;
+  --neutral-300: #201d19;
 }
 
 @theme {
@@ -44,11 +44,14 @@ html.light {
 }
 
 /* Custom Base styles */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 body {
   background-color: var(--neutral-950);
   color: var(--neutral-400);
   font-family: var(--font-sans);
-  overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 

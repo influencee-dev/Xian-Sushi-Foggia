@@ -43,30 +43,6 @@ import specialRollImg from "./assets/images/sushi_special_roll_1782302710695.jpg
 import temakiImg from "./assets/images/sushi_temaki_1782302791979.jpg";
 
 export default function App() {
-  const priceImageMap: Record<string, string> = {
-    "antipasto.png": dumplingsImg,
-    "sashimi.png": heroContactsImg,
-    "temaki.png": temakiImg,
-    "nigiri.png": nigiriImg
-  };
-
-  const categoryImageMap: Record<string, string> = {
-    "Antipasti": dumplingsImg,
-    "Primi Piatti": dumplingsImg,
-    "Secondi Piatti": pokeImg,
-    "Sashimi & Sushi Misto": heroContactsImg,
-    "Nigiri": nigiriImg,
-    "Hosomaki": specialRollImg,
-    "Uramaki": specialRollImg,
-    "Futomaki": specialRollImg,
-    "Gunkan": specialRollImg,
-    "Temaki": temakiImg,
-    "Onigiri": nigiriImg,
-    "Dolci": bubbleTeaImg,
-    "Bevande": bubbleTeaImg,
-    "Birre": bubbleTeaImg
-  };
-
   const [currentPage, setCurrentPage] = useState<string>("home");
   const [cart, setCart] = useState<CartItem[]>([]);
   const categoryContainerRef = useRef<HTMLDivElement>(null);
@@ -340,7 +316,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-400 font-sans selection:bg-amber-500/20 selection:text-white flex flex-col">
+    <div className="min-h-screen bg-neutral-950 text-neutral-400 font-sans selection:bg-amber-500/20 selection:text-white flex flex-col overflow-x-hidden">
       {/* JSON-LD Script tag for SEO bots */}
       <script type="application/ld+json">
         {JSON.stringify(jsonLdData)}
@@ -366,7 +342,7 @@ export default function App() {
             
             {/* HERO SECTION - Fixed at the back, remains still while scrolling */}
             <section 
-              className="fixed top-[88px] left-0 w-full h-[calc(100vh-88px)] flex items-center justify-center text-center px-4 py-20 bg-neutral-950 overflow-hidden z-0"
+              className="fixed top-[88px] left-0 right-0 h-[calc(100vh-88px)] flex items-center justify-center text-center px-4 py-20 bg-neutral-950 overflow-hidden z-0"
               style={{
                 backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.4), rgba(3, 3, 3, 0.4)), url('${heroHomeImg}')`,
                 backgroundSize: "cover",
@@ -424,70 +400,8 @@ export default function App() {
               {/* Clean division transition line */}
               <div className="h-[1px] w-full bg-neutral-800/20" />
               
-              {/* SEZIONE FILOSOFIA */}
-              <section className="py-24 bg-neutral-950 relative">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div className="text-center max-w-3xl mx-auto mb-20">
-                  <span className="text-amber-500 font-mono tracking-widest text-xs uppercase block mb-3">
-                    L'ECCELLENZA DEL DETTAGLIO
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans text-white tracking-tight">
-                    La nostra idea di sushi <span className="text-amber-500">.</span>
-                  </h2>
-                  <div className="h-1 w-12 bg-amber-500 mx-auto mt-4 rounded-full"></div>
-                  <p className="text-neutral-300 mt-6 text-base sm:text-lg leading-relaxed font-sans font-light">
-                    “Un’esperienza pensata per chi ama il sushi, la cucina orientale e il piacere di una cena curata in ogni dettaglio. Ogni piatto nasce dall’equilibrio tra qualità degli ingredienti, freschezza, presentazione e servizio. Un format premium, accogliente e contemporaneo, dove il gusto incontra il relax.”
-                  </p>
-                </div>
-
-                {/* Three Elegant Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* Card 1 */}
-                  <div className="bg-neutral-900/50 border border-neutral-800/80 rounded-2xl p-8 hover:border-amber-500/30 hover:bg-neutral-900 transition-all group">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                      <Flame className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-lg font-sans font-bold text-white mb-3">
-                      Qualità Selezionata
-                    </h3>
-                    <p className="text-sm text-neutral-400 leading-relaxed font-sans">
-                      Ingredienti scelti con cura, preparazioni espresse e attenzione costante alla freschezza del pesce abbattuto.
-                    </p>
-                  </div>
-
-                  {/* Card 2 */}
-                  <div className="bg-neutral-900/50 border border-neutral-800/80 rounded-2xl p-8 hover:border-amber-500/30 hover:bg-neutral-900 transition-all group">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                      <Sparkles className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-lg font-sans font-bold text-white mb-3">
-                      Esperienza All You Can Eat
-                    </h3>
-                    <p className="text-sm text-neutral-400 leading-relaxed font-sans">
-                      Una formula completa, pensata per vivere il sushi con assoluta libertà, gusto illimitato e grande varietà.
-                    </p>
-                  </div>
-
-                  {/* Card 3 */}
-                  <div className="bg-neutral-900/50 border border-neutral-800/80 rounded-2xl p-8 hover:border-amber-500/30 hover:bg-neutral-900 transition-all group">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                      <Heart className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-lg font-sans font-bold text-white mb-3">
-                      Atmosfera Premium
-                    </h3>
-                    <p className="text-sm text-neutral-400 leading-relaxed font-sans">
-                      Un ambiente curato nei dettagli, rilassante ed elegante, ideale per coppie, cene di famiglia e gruppi d'amici.
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-            </section>
-
-            {/* SEZIONE MENU ALL YOU CAN EAT */}
-            <section id="menu-ayce" className="py-24 bg-neutral-950 border-t border-neutral-900 relative">
+              {/* SEZIONE MENU ALL YOU CAN EAT */}
+              <section id="menu-ayce" className="py-24 bg-neutral-950 border-t border-neutral-900 relative overflow-hidden">
               {/* Visual red/black circular pattern for background decoration */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-950/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -576,7 +490,7 @@ export default function App() {
                             <div className="sm:col-span-5 flex items-center justify-center w-full h-full min-h-[160px] sm:min-h-0">
                               <div className="w-full aspect-[4/3] flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/40">
                                 <img
-                                  src={priceImageMap[card.image] || card.image}
+                                  src={card.image}
                                   alt={card.title}
                                   referrerPolicy="no-referrer"
                                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
@@ -673,16 +587,6 @@ export default function App() {
                         className="w-full h-[350px] object-cover hover:scale-105 transition-transform duration-700"
                         referrerPolicy="no-referrer"
                       />
-                      {/* Premium card badge overlay */}
-                      <div className="absolute bottom-4 left-4 right-4 bg-neutral-950/80 backdrop-blur-md border border-neutral-800 p-4 rounded-xl flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center flex-shrink-0">
-                          <Smile className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-white uppercase font-sans">Spazio bimbi attrezzato</p>
-                          <p className="text-[10px] text-neutral-400 mt-0.5">Disponibile gratuitamente per i clienti del locale.</p>
-                        </div>
-                      </div>
                     </div>
                   </div>
 
@@ -765,7 +669,7 @@ export default function App() {
                 {CATEGORIES.map((category) => {
                   const categoryProducts = PRODUCTS.filter((p) => p.category === category);
                   if (categoryProducts.length === 0) return null;
-                  const categoryImage = categoryImageMap[category] || CATEGORY_IMAGES[category] || "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80";
+                  const categoryImage = CATEGORY_IMAGES[category] || "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80";
                   const sectionId = `section-${category.replace(/\s+/g, "-").toLowerCase()}`;
 
                   return (
@@ -878,6 +782,127 @@ export default function App() {
                     </section>
                   );
                 })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================= */}
+        {/* PAGE: FILOSOFIA */}
+        {/* ========================================================= */}
+        {currentPage === "philosophy" && (
+          <div className="animate-fade-in relative">
+            
+            {/* HERO SECTION - Fixed at the back, remains still while scrolling (no text overlay) */}
+            <section 
+              className="fixed top-[88px] left-0 right-0 h-[calc(100vh-88px)] flex items-center justify-center bg-neutral-950 overflow-hidden z-0"
+              style={{
+                backgroundImage: `linear-gradient(rgba(3, 3, 3, 0.4), rgba(3, 3, 3, 0.4)), url('${specialRollImg}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center"
+              }}
+            >
+              {/* Gold light leak effect in bottom left */}
+              <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+            </section>
+
+            {/* SCROLLING CONTENT WRAPPER - Slides up and covers the hero section */}
+            <div className="relative z-20 mt-[calc(100vh-88px)] bg-neutral-950 pb-24 border-t border-neutral-900 shadow-none">
+              
+              {/* Clean division transition line */}
+              <div className="h-[1px] w-full bg-neutral-800/20" />
+              
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                
+                {/* Intro Section */}
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                  <span className="text-red-600 font-mono tracking-widest text-xs uppercase block mb-3 font-bold">
+                    L'ECCELLENZA DEL DETTAGLIO
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans text-white tracking-tight">
+                    I tre pilastri della nostra cucina <span className="text-red-600">.</span>
+                  </h2>
+                  <div className="h-1 w-12 bg-red-600 mx-auto mt-4 rounded-full"></div>
+                  <p className="text-neutral-300 mt-6 text-base sm:text-lg leading-relaxed font-sans font-light">
+                    “Dall'accurata selezione delle materie prime al design raffinato dell'ambiente: Xian è un'esperienza sensoriale completa, pensata per chi desidera il perfetto equilibrio tra gusto eccellente e relax assoluto.”
+                  </p>
+                </div>
+
+                {/* 1. Qualità Selezionata */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16 border-t border-neutral-900/50">
+                  <div className="lg:col-span-7 space-y-6">
+                    <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">01 / LA NOSTRA PROMESSA</span>
+                    <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
+                      Qualità Selezionata <span className="text-red-600">.</span>
+                    </h3>
+                    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                      Selezioniamo solo materie prime eccellenti. Ogni trancio di pesce viene acquistato con certificazioni di provenienza e sottoposto a un rigoroso processo di abbattimento rapido di temperatura per garantire la massima sicurezza alimentare.
+                    </p>
+                    <p className="text-neutral-400 text-sm leading-relaxed">
+                      Le nostre preparazioni sono interamente espresse: nulla viene preparato in anticipo. Questo garantisce che ogni singola portata arrivi al tuo tavolo preservando la consistenza ideale, i colori naturali e il sapore autentico del pesce fresco. Un'attenzione meticolosa che trasforma la cena in un momento di pura estasi gastronomica.
+                    </p>
+                  </div>
+                  <div className="lg:col-span-5">
+                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                      <img 
+                        src={nigiriImg} 
+                        alt="Qualità Selezionata" 
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Esperienza All You Can Eat */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16 border-t border-neutral-900/50">
+                  <div className="lg:col-span-5 order-2 lg:order-1">
+                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                      <img 
+                        src={temakiImg} 
+                        alt="Esperienza All You Can Eat" 
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
+                  </div>
+                  <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                    <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">02 / LA FORMULA PERFETTA</span>
+                    <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
+                      Esperienza All You Can Eat <span className="text-red-600">.</span>
+                    </h3>
+                    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                      Per noi, la formula All You Can Eat non è un compromesso sulla qualità, ma una via di accesso alla libertà di esplorazione culinaria. 
+                    </p>
+                    <p className="text-neutral-400 text-sm leading-relaxed">
+                      Vogliamo dare a ciascun ospite la possibilità di intraprendere un percorso gastronomico senza limiti o timori, provando creazioni classiche, roll innovativi e accostamenti audaci pensati dai nostri sushi chef. Gusto illimitato, grande varietà, ma sempre con la certezza di un servizio accurato e impiattamenti curati con la massima dedizione.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 3. Atmosfera Premium */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-16 border-t border-neutral-900/50">
+                  <div className="lg:col-span-7 space-y-6">
+                    <span className="text-red-600 font-mono text-sm tracking-widest uppercase block font-bold">03 / IL NOSTRO SPAZIO</span>
+                    <h3 className="text-2xl sm:text-3xl font-sans text-white font-semibold tracking-tight">
+                      Atmosfera Premium <span className="text-red-600">.</span>
+                    </h3>
+                    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                      La cura per il dettaglio da Xian va ben oltre il piatto. Abbiamo plasmato un ambiente raffinato, rilassante ed elegante, in cui il design si unisce alla massima ospitalità.
+                    </p>
+                    <p className="text-neutral-400 text-sm leading-relaxed">
+                      Arredi in tonalità scure, dettagli caldi, giochi di luce soffusa ed elementi di design creano l'atmosfera ideale per qualsiasi occasione: da una cena romantica di coppia a una serata rilassata in famiglia o con un gruppo di amici storici. Un'oasi contemporanea concepita per farti dimenticare il ritmo frenetico della giornata e farti vivere un momento speciale.
+                    </p>
+                  </div>
+                  <div className="lg:col-span-5">
+                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                      <img 
+                        src={heroContactsImg} 
+                        alt="Atmosfera Premium" 
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>

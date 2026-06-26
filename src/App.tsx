@@ -619,7 +619,7 @@ export default function App() {
             <section className="bg-neutral-950 py-12 border-b border-neutral-900 text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <span className="text-red-600 font-mono tracking-widest text-xs uppercase block mb-2">
-                  ORDINA ONLINE CON WHATSAPP
+                  ORDINA ONLINE
                 </span>
                 <h1 className="text-3xl sm:text-5xl font-sans text-white tracking-tight">
                   Take Away & Delivery <span className="text-red-600">.</span>

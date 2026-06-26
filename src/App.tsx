@@ -488,7 +488,7 @@ export default function App() {
                           {/* Image Column */}
                           {card.image && (
                             <div className="sm:col-span-5 flex items-center justify-center w-full h-full min-h-[160px] sm:min-h-0">
-                              <div className="w-full aspect-[4/3] flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/40">
+                              <div className="w-full aspect-[4/3] flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-2xl">
                                 <img
                                   src={card.image}
                                   alt={card.title}
@@ -580,7 +580,7 @@ export default function App() {
                   <div className="lg:col-span-5 relative">
                     <div className="absolute -inset-2 bg-gradient-to-tr from-amber-500 to-amber-600 rounded-3xl opacity-10 blur-xl" />
                     
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-neutral-800/80">
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                       <img
                         src="playland.png"
                         alt="Area Bimbi con Gonfiabili Xian Sushi Foggia"
@@ -699,7 +699,7 @@ export default function App() {
                             </div>
 
                             {/* Clean product category image */}
-                            <div className="absolute right-4 bottom-4 lg:static lg:mx-auto lg:mt-8 w-24 h-24 lg:w-44 lg:h-44 transition-all duration-500 flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-xl border border-neutral-850 bg-neutral-950/20">
+                            <div className="absolute right-4 bottom-4 lg:static lg:mx-auto lg:mt-8 w-24 h-24 lg:w-44 lg:h-44 transition-all duration-500 flex items-center justify-center select-none pointer-events-none overflow-hidden rounded-xl">
                               <img
                                 src={categoryImage}
                                 alt={category}
@@ -847,7 +847,7 @@ export default function App() {
                       </p>
                     </div>
                     <div className="lg:col-span-5">
-                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl group">
                         <img 
                           src="filosofia1.png" 
                           alt="Qualità Selezionata" 
@@ -864,7 +864,7 @@ export default function App() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     <div className="lg:col-span-5 order-2 lg:order-1">
-                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl group">
                         <img 
                           src="filosofia2.png" 
                           alt="Esperienza All You Can Eat" 
@@ -905,7 +905,7 @@ export default function App() {
                       </p>
                     </div>
                     <div className="lg:col-span-5">
-                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl group">
                         <img 
                           src="filosofia3.png" 
                           alt="Atmosfera Premium" 

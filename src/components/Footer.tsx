@@ -167,7 +167,6 @@ export default function Footer({ onPageChange, onOpenBooking, onOpenLegal }: Foo
                 (e.target as HTMLElement).style.display = "none";
               }}
             />
-            <span className="text-xs font-semibold text-neutral-300">Socialee</span>
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-6 text-[11px] text-neutral-400">

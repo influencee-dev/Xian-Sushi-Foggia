@@ -2,9 +2,11 @@ export interface PriceCard {
   id: string;
   title: string;
   price: number;
+  kidsPrice?: string;
   description: string;
   note: string;
   image?: string;
+  timeSlot?: string;
 }
 
 export interface RestaurantConfig {
@@ -13,6 +15,8 @@ export interface RestaurantConfig {
   address: string;
   phone: string;
   phoneDisplay: string;
+  landline?: string;
+  landlineDisplay?: string;
   whatsapp: string;
   whatsappDisplay: string;
   email: string;

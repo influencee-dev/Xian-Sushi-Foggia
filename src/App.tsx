@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { RESTAURANT_CONFIG, PRODUCTS, CATEGORIES, CATEGORY_IMAGES } from "./data";
+import { RESTAURANT_CONFIG, PRODUCTS, CATEGORIES, CATEGORY_IMAGES, CATEGORY_NOTES } from "./data";
 import { CartItem, OrderType, Product } from "./types";
 import { 
   Calendar, 
@@ -275,15 +275,15 @@ export default function App() {
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-            "opens": "12:00",
-            "closes": "14:30"
+            "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "12:30",
+            "closes": "15:00"
           },
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-            "opens": "19:00",
-            "closes": "23:30"
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "19:30",
+            "closes": "24:00"
           }
         ],
         "areaServed": RESTAURANT_CONFIG.areaServed.map(city => ({
@@ -420,12 +420,12 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* Four Price Cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 max-w-6xl mx-auto">
+                {/* Price Cards Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
                   {RESTAURANT_CONFIG.prices.map((card) => {
                     const isLunch = card.id.includes("pranzo");
-                    const isWeekend = card.id.includes("weekend");
-                    const kidsPrice = isLunch ? "€ 10,00" : "€ 15,00";
+                    const kidsPrice = card.kidsPrice || (isLunch ? "€ 8,90" : "€ 11,90");
+                    const scheduleLabel = isLunch ? "12:30 - 15:00 (ESCLUSO MARTEDÌ)" : "19:30 - 24:00 (TUTTE LE SERE)";
                     return (
                       <div
                         key={card.id}
@@ -445,29 +445,28 @@ export default function App() {
                                 MENU <span className="text-amber-500 font-extrabold">{isLunch ? "PRANZO" : "CENA"}</span>
                               </h3>
                               <p className="text-[10px] text-amber-500/80 font-mono uppercase tracking-widest font-bold">
-                                {isWeekend ? "WEEKEND & FESTIVI" : "IN SETTIMANA"}
+                                {scheduleLabel}
                               </p>
                             </div>
 
                             <p className="text-xs text-neutral-400 font-sans leading-relaxed">
-                              Il menù All You Can Eat {isLunch ? "a pranzo" : "a cena"} è disponibile al prezzo di:
+                              {card.description}
                             </p>
 
                             <div className="space-y-1">
+                              <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 block">Prezzo Adulti</span>
                               <div className="text-white text-3xl sm:text-4xl font-extrabold font-mono tracking-tight">
                                 € {card.price.toFixed(2).replace(".", ",")}
                               </div>
-                              <p className="text-[10px] text-neutral-500 font-sans">
-                                {isWeekend ? "Valido nei weekend e festivi" : "Valido nei giorni feriali"}
-                              </p>
                             </div>
 
                             <div className="space-y-1 text-xs text-neutral-400 border-t border-neutral-800/80 pt-4 font-sans">
-                              <p>
-                                Bambini con altezza inferiore a 120 cm: <span className="text-white font-semibold">{kidsPrice}</span>
+                              <p className="flex items-center justify-between">
+                                <span>Bambini (&lt; 120 cm):</span>
+                                <span className="text-amber-400 font-bold text-sm font-mono">{kidsPrice}</span>
                               </p>
-                              <p>
-                                Bambini da 120 cm in su: <span className="text-white font-semibold">prezzo intero</span>
+                              <p className="text-[11px] text-neutral-500">
+                                Bambini da 120 cm in su: <span className="text-white font-medium">prezzo intero</span>
                               </p>
                             </div>
 
@@ -478,7 +477,7 @@ export default function App() {
                             <div className="pt-2">
                               <button
                                 onClick={() => setIsBookingModalOpen(true)}
-                                className="px-6 py-2.5 bg-white hover:bg-neutral-200 text-black text-[11px] uppercase font-extrabold tracking-wider rounded-full transition-all duration-300 shadow-md"
+                                className="px-6 py-2.5 bg-white hover:bg-neutral-200 text-black text-[11px] uppercase font-extrabold tracking-wider rounded-full transition-all duration-300 shadow-md cursor-pointer"
                               >
                                 Prenota un tavolo
                               </button>
@@ -619,7 +618,7 @@ export default function App() {
             <section className="bg-neutral-950 py-12 border-b border-neutral-900 text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <span className="text-red-600 font-mono tracking-widest text-xs uppercase block mb-2">
-                  ORDINA ONLINE
+                  ORDINA ONLINE CON WHATSAPP
                 </span>
                 <h1 className="text-3xl sm:text-5xl font-sans text-white tracking-tight">
                   Take Away & Delivery <span className="text-red-600">.</span>
@@ -696,6 +695,11 @@ export default function App() {
                               <p className="text-xs text-neutral-500 font-mono uppercase tracking-widest">
                                 {categoryProducts.length} Specialità
                               </p>
+                              {CATEGORY_NOTES[category] && (
+                                <p className="text-[11px] text-amber-400 font-sans italic bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg mt-2">
+                                  {CATEGORY_NOTES[category]}
+                                </p>
+                              )}
                             </div>
 
                             {/* Clean product category image */}
@@ -782,6 +786,14 @@ export default function App() {
                     </section>
                   );
                 })}
+              </div>
+
+              {/* Note about frozen items */}
+              <div className="mt-14 mb-8 p-4 sm:p-5 rounded-2xl bg-neutral-900/60 border border-neutral-800/80 text-xs text-neutral-400 flex items-start gap-3">
+                <span className="text-amber-500 font-bold text-base leading-none mt-0.5">*</span>
+                <p className="leading-relaxed">
+                  <strong className="text-neutral-200">Nota informativa:</strong> I piatti contrassegnati con l'asterisco (<span className="text-amber-500 font-bold">*</span>) indicano prodotti congelati o surgelati all'origine.
+                </p>
               </div>
             </div>
           </div>
@@ -991,22 +1003,31 @@ export default function App() {
                         <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-bold">
                           Contatti Diretti
                         </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                           <a
                             href={`tel:${RESTAURANT_CONFIG.phone}`}
-                            className="p-3.5 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl border border-neutral-900 hover:border-amber-500/30 transition-all group"
+                            className="p-3 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl border border-neutral-900 hover:border-amber-500/30 transition-all group"
                           >
-                            <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-500 block">Telefono</span>
-                            <span className="text-white font-medium text-sm group-hover:text-amber-500 transition-colors">{RESTAURANT_CONFIG.phoneDisplay}</span>
+                            <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-500 block">Cellulare</span>
+                            <span className="text-white font-medium text-xs sm:text-sm group-hover:text-amber-500 transition-colors whitespace-nowrap">{RESTAURANT_CONFIG.phoneDisplay}</span>
                           </a>
+                          {RESTAURANT_CONFIG.landline && (
+                            <a
+                              href={`tel:${RESTAURANT_CONFIG.landline}`}
+                              className="p-3 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl border border-neutral-900 hover:border-amber-500/30 transition-all group"
+                            >
+                              <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-500 block">Telefono Fisso</span>
+                              <span className="text-white font-medium text-xs sm:text-sm group-hover:text-amber-500 transition-colors whitespace-nowrap">{RESTAURANT_CONFIG.landlineDisplay}</span>
+                            </a>
+                          )}
                           <a
                             href={`https://wa.me/${RESTAURANT_CONFIG.whatsapp.replace("+", "")}`}
                             target="_blank"
                             rel="noreferrer"
-                            className="p-3.5 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl border border-neutral-900 hover:border-emerald-500/30 transition-all group"
+                            className="p-3 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl border border-neutral-900 hover:border-emerald-500/30 transition-all group"
                           >
                             <span className="text-[9px] font-mono uppercase tracking-wider text-neutral-500 block">WhatsApp</span>
-                            <span className="text-emerald-400 font-medium text-sm group-hover:text-emerald-300 transition-colors">Scrivici Ora</span>
+                            <span className="text-emerald-400 font-medium text-xs sm:text-sm group-hover:text-emerald-300 transition-colors">Scrivici Ora</span>
                           </a>
                         </div>
                       </div>

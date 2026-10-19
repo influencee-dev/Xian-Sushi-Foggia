@@ -74,7 +74,7 @@ export default function LegalModals({ activeDoc, onClose }: LegalModalsProps) {
                 <div className="p-4 bg-neutral-950/50 rounded-xl border border-neutral-800/40 space-y-2">
                   <h4 className="text-xs font-mono uppercase tracking-widest text-amber-500 font-bold">1. Titolare del Trattamento</h4>
                   <p className="text-xs text-neutral-400">
-                    Il titolare del trattamento dei dati è <strong>Xian Sushi Foggia S.r.l.</strong>, con sede legale a Foggia in Via Manfredonia 37. Per qualsiasi domanda puoi contattarci all'indirizzo email <span className="text-amber-500/90">info@xiansushifoggia.it</span> o al numero di telefono <span className="text-amber-500/90">377 8297346</span>.
+                    Il titolare del trattamento dei dati è <strong>Xian Sushi Foggia S.r.l.</strong>, con sede legale a Foggia in Via Manfredonia 37. Per qualsiasi domanda puoi contattarci all'indirizzo email <span className="text-amber-500/90">info@xiansushifoggia.it</span> o ai numeri di telefono <span className="text-amber-500/90">Cell: 377 829 7346</span> / <span className="text-amber-500/90">Tel: 0881 778389</span>.
                   </p>
                 </div>
 
@@ -273,7 +273,7 @@ export default function LegalModals({ activeDoc, onClose }: LegalModalsProps) {
                     </div>
                     <div>
                       <span className="text-neutral-500 block uppercase tracking-wider font-mono text-[10px]">Contatti Telefonici</span>
-                      <span className="text-amber-500 font-medium">377 8297346</span>
+                      <span className="text-amber-500 font-medium">Cell. 377 829 7346 / Tel. 0881 778389</span>
                     </div>
                     <div>
                       <span className="text-neutral-500 block uppercase tracking-wider font-mono text-[10px]">Indirizzo Email Ufficiale</span>

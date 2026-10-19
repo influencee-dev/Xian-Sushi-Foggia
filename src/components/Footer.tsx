@@ -109,14 +109,26 @@ export default function Footer({ onPageChange, onOpenBooking, onOpenLegal }: Foo
                 <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
                 <span>{RESTAURANT_CONFIG.address}</span>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                <a
-                  href={`tel:${RESTAURANT_CONFIG.phone}`}
-                  className="hover:text-white transition-colors"
-                >
-                  {RESTAURANT_CONFIG.phoneDisplay}
-                </a>
+              <li className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  <a
+                    href={`tel:${RESTAURANT_CONFIG.phone}`}
+                    className="hover:text-white transition-colors flex items-center gap-1.5"
+                  >
+                    <span className="text-neutral-500 text-[10px] uppercase font-mono">Cell:</span>
+                    <span className="font-medium text-neutral-300">{RESTAURANT_CONFIG.phoneDisplay}</span>
+                  </a>
+                  {RESTAURANT_CONFIG.landline && (
+                    <a
+                      href={`tel:${RESTAURANT_CONFIG.landline}`}
+                      className="hover:text-white transition-colors flex items-center gap-1.5"
+                    >
+                      <span className="text-neutral-500 text-[10px] uppercase font-mono">Tel:</span>
+                      <span className="font-medium text-neutral-300">{RESTAURANT_CONFIG.landlineDisplay}</span>
+                    </a>
+                  )}
+                </div>
               </li>
             </ul>
           </div>

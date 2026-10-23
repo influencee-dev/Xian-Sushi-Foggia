@@ -8,8 +8,17 @@ interface BookingFormProps {
   onCloseModal?: () => void;
 }
 
+interface BookingFormState {
+  fullName: string;
+  phone: string;
+  guestsCount: number | "";
+  date: string;
+  timeSlot: string;
+  notes?: string;
+}
+
 export default function BookingForm({ isModal = false, onCloseModal }: BookingFormProps) {
-  const [formData, setFormData] = useState<BookingDetails>({
+  const [formData, setFormData] = useState<BookingFormState>({
     fullName: "",
     phone: "",
     guestsCount: 2,
@@ -22,15 +31,16 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const timeOptions = [
-    "Pranzo 12:00",
     "Pranzo 12:30",
     "Pranzo 13:00",
     "Pranzo 13:30",
+    "Pranzo 14:00",
     "Cena 19:30",
     "Cena 20:00",
     "Cena 20:30",
     "Cena 21:00",
     "Cena 21:30",
+    "Cena 22:00",
   ];
 
   const validateForm = () => {
@@ -39,7 +49,8 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
     if (!formData.phone.trim()) tempErrors.phone = "Il numero di telefono è obbligatorio.";
     if (!formData.date) tempErrors.date = "La data è obbligatoria.";
     if (!formData.timeSlot) tempErrors.timeSlot = "La fascia oraria è obbligatoria.";
-    if (formData.guestsCount < 1) tempErrors.guestsCount = "Almeno 1 persona.";
+    const guestsNum = Number(formData.guestsCount);
+    if (!guestsNum || guestsNum < 1) tempErrors.guestsCount = "Almeno 1 persona.";
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -53,6 +64,8 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
   };
 
   const handleSendToWhatsApp = () => {
+    const finalGuests = Number(formData.guestsCount) || 1;
+
     // Save to Brevo list 45
     fetch("/api/brevo", {
       method: "POST",
@@ -64,7 +77,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
         phone: formData.phone,
         type: "booking",
         details: {
-          guestsCount: formData.guestsCount,
+          guestsCount: finalGuests,
           date: formData.date,
           timeSlot: formData.timeSlot,
           notes: formData.notes,
@@ -76,7 +89,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
 
 Nome: ${formData.fullName}
 Telefono: ${formData.phone}
-Persone: ${formData.guestsCount}
+Persone: ${finalGuests}
 Giorno: ${formData.date}
 Fascia oraria: ${formData.timeSlot}
 Note: ${formData.notes || "Nessuna"}`;
@@ -183,18 +196,62 @@ Note: ${formData.notes || "Nessuna"}`;
               <label className="block text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1.5">
                 Persone *
               </label>
-              <div className="relative">
-                <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+              <div className="relative flex items-center">
+                <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 pointer-events-none" />
                 <input
-                  type="number"
-                  min="1"
-                  max="30"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="Es. 2"
                   value={formData.guestsCount}
-                  onChange={(e) => setFormData({ ...formData, guestsCount: parseInt(e.target.value) || 1 })}
-                  className={`w-full pl-10 pr-4 py-3 bg-neutral-950 border rounded-xl text-white text-sm focus:outline-none transition-all ${
+                  onFocus={(e) => e.target.select()}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    if (raw === "") {
+                      setFormData((prev) => ({ ...prev, guestsCount: "" }));
+                      return;
+                    }
+                    const digits = raw.replace(/\D/g, "");
+                    if (digits === "") {
+                      setFormData((prev) => ({ ...prev, guestsCount: "" }));
+                    } else {
+                      const num = parseInt(digits, 10);
+                      setFormData((prev) => ({ ...prev, guestsCount: Math.min(50, num) }));
+                    }
+                  }}
+                  onBlur={() => {
+                    if (formData.guestsCount === "" || Number(formData.guestsCount) < 1) {
+                      setFormData((prev) => ({ ...prev, guestsCount: 1 }));
+                    }
+                  }}
+                  className={`w-full pl-10 pr-20 py-3 bg-neutral-950 border rounded-xl text-white text-sm focus:outline-none transition-all ${
                     errors.guestsCount ? "border-red-500 focus:border-red-500" : "border-neutral-800 focus:border-amber-500/50"
                   }`}
                 />
+                <div className="absolute right-1.5 flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const curr = Number(formData.guestsCount) || 1;
+                      setFormData((prev) => ({ ...prev, guestsCount: Math.max(1, curr - 1) }));
+                    }}
+                    className="w-7 h-7 flex items-center justify-center rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 transition-colors text-base font-bold active:scale-95 cursor-pointer"
+                    aria-label="Riduci persone"
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const curr = Number(formData.guestsCount) || 1;
+                      setFormData((prev) => ({ ...prev, guestsCount: Math.min(50, curr + 1) }));
+                    }}
+                    className="w-7 h-7 flex items-center justify-center rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 transition-colors text-base font-bold active:scale-95 cursor-pointer"
+                    aria-label="Aumenta persone"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
               {errors.guestsCount && <p className="text-red-500 text-[11px] mt-1 font-sans">{errors.guestsCount}</p>}
             </div>
@@ -294,7 +351,7 @@ Note: ${formData.notes || "Nessuna"}`;
               </div>
               <div className="flex justify-between border-b border-neutral-900 pb-2">
                 <span className="text-neutral-500">Coperti:</span>
-                <span className="text-amber-500 font-bold">{formData.guestsCount} persone</span>
+                <span className="text-amber-500 font-bold">{Number(formData.guestsCount) || 1} persone</span>
               </div>
               <div className="flex justify-between border-b border-neutral-900 pb-2">
                 <span className="text-neutral-500">Data:</span>

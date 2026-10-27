@@ -76,6 +76,7 @@ export default function CheckoutForm({
 
     // Save to Brevo list 45 and send order email recap
     fetch("/api/brevo", {
+      keepalive: true,
       method: "POST",
       headers: {
         "Content-Type": "application/json",

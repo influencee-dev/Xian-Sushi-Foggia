@@ -68,6 +68,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
 
     // Save to Brevo list 45
     fetch("/api/brevo", {
+      keepalive: true,
       method: "POST",
       headers: {
         "Content-Type": "application/json",

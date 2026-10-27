@@ -1,5 +1,5 @@
 // Funzione Vercel: risponde a POST /api/brevo sul sito online.
-import { handleBrevo } from "../lib/brevo";
+import { handleBrevo } from "../lib/brevo.js";
 
 export async function POST(request: Request): Promise<Response> {
   let payload: unknown;

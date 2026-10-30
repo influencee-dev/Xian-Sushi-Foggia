@@ -62,19 +62,41 @@ export async function handleBrevo(payload: any): Promise<BrevoResult> {
       updateEnabled: true,
     };
 
-    const contactResponse = await fetch("https://api.brevo.com/v3/contacts", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-        "api-key": apiKey,
-      },
-      body: JSON.stringify(brevoBody),
-    });
+    const saveContact = (body: unknown) =>
+      fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+          "api-key": apiKey,
+        },
+        body: JSON.stringify(body),
+      });
 
+    let contactResponse = await saveContact(brevoBody);
+
+    // Il numero può essere già legato a un altro contatto (es. uno vecchio con email
+    // segnaposto): in quel caso salva comunque email e nome, con il telefono nella nota.
     if (!contactResponse.ok) {
-      console.error("Brevo Contacts API error:", await contactResponse.text());
-    } else {
+      const errText = await contactResponse.text();
+      if (cleanPhone && errText.includes("duplicate_parameter") && errText.includes("SMS")) {
+        console.warn("Phone already used by another Brevo contact, saving without SMS");
+        contactResponse = await saveContact({
+          ...brevoBody,
+          attributes: {
+            FIRSTNAME: firstName,
+            NOTE: `${infoMsg} Tel: ${cleanPhone}`,
+          },
+        });
+        if (!contactResponse.ok) {
+          console.error("Brevo Contacts API error (retry):", await contactResponse.text());
+        }
+      } else {
+        console.error("Brevo Contacts API error:", errText);
+      }
+    }
+
+    if (contactResponse.ok) {
       console.log(`Contact added/updated in Brevo list ${BREVO_LIST_ID}`);
     }
 

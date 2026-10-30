@@ -50,7 +50,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
     if (!formData.fullName.trim()) tempErrors.fullName = "Il nome è obbligatorio.";
     if (!formData.phone.trim()) tempErrors.phone = "Il numero di telefono è obbligatorio.";
     if (!formData.email.trim()) tempErrors.email = "L'email è obbligatoria.";
-    else if (!/^[^s@]+@[^s@]+.[^s@]+$/.test(formData.email.trim()))
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim()))
       tempErrors.email = "Inserisci un'email valida.";
     if (!formData.date) tempErrors.date = "La data è obbligatoria.";
     if (!formData.timeSlot) tempErrors.timeSlot = "La fascia oraria è obbligatoria.";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BookingDetails, RestaurantConfig } from "../types";
 import { RESTAURANT_CONFIG } from "../data";
-import { Calendar, Users, Phone, User, MessageSquare, Clock, Check, X } from "lucide-react";
+import { Calendar, Users, Phone, User, Mail, MessageSquare, Clock, Check, X } from "lucide-react";
 
 interface BookingFormProps {
   isModal?: boolean;
@@ -11,6 +11,7 @@ interface BookingFormProps {
 interface BookingFormState {
   fullName: string;
   phone: string;
+  email: string;
   guestsCount: number | "";
   date: string;
   timeSlot: string;
@@ -21,6 +22,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
   const [formData, setFormData] = useState<BookingFormState>({
     fullName: "",
     phone: "",
+    email: "",
     guestsCount: 2,
     date: "",
     timeSlot: "Cena 20:30",
@@ -47,6 +49,9 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
     const tempErrors: { [key: string]: string } = {};
     if (!formData.fullName.trim()) tempErrors.fullName = "Il nome è obbligatorio.";
     if (!formData.phone.trim()) tempErrors.phone = "Il numero di telefono è obbligatorio.";
+    if (!formData.email.trim()) tempErrors.email = "L'email è obbligatoria.";
+    else if (!/^[^s@]+@[^s@]+.[^s@]+$/.test(formData.email.trim()))
+      tempErrors.email = "Inserisci un'email valida.";
     if (!formData.date) tempErrors.date = "La data è obbligatoria.";
     if (!formData.timeSlot) tempErrors.timeSlot = "La fascia oraria è obbligatoria.";
     const guestsNum = Number(formData.guestsCount);
@@ -74,6 +79,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        email: formData.email.trim(),
         firstName: formData.fullName,
         phone: formData.phone,
         type: "booking",
@@ -90,6 +96,7 @@ export default function BookingForm({ isModal = false, onCloseModal }: BookingFo
 
 Nome: ${formData.fullName}
 Telefono: ${formData.phone}
+Email: ${formData.email.trim()}
 Persone: ${finalGuests}
 Giorno: ${formData.date}
 Fascia oraria: ${formData.timeSlot}
@@ -189,6 +196,28 @@ Note: ${formData.notes || "Nessuna"}`;
               </div>
               {errors.phone && <p className="text-red-500 text-[11px] mt-1 font-sans">{errors.phone}</p>}
             </div>
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1.5">
+              Email *
+            </label>
+            <div className="relative">
+              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
+              <input
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="Esempio: mario.rossi@email.it"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={`w-full pl-10 pr-4 py-3 bg-neutral-950 border rounded-xl text-white text-sm focus:outline-none transition-all ${
+                  errors.email ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/25" : "border-neutral-800 focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/25"
+                }`}
+              />
+            </div>
+            {errors.email && <p className="text-red-500 text-[11px] mt-1 font-sans">{errors.email}</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -349,6 +378,10 @@ Note: ${formData.notes || "Nessuna"}`;
               <div className="flex justify-between border-b border-neutral-900 pb-2">
                 <span className="text-neutral-500">Telefono:</span>
                 <span className="text-white font-medium">{formData.phone}</span>
+              </div>
+              <div className="flex justify-between gap-3 border-b border-neutral-900 pb-2">
+                <span className="text-neutral-500">Email:</span>
+                <span className="text-white font-medium break-all text-right">{formData.email}</span>
               </div>
               <div className="flex justify-between border-b border-neutral-900 pb-2">
                 <span className="text-neutral-500">Coperti:</span>
